@@ -14,8 +14,12 @@
     .title {
       font-weight: bold;
     }
-    .author, .date {
+    .details {
       font-style: italic;
+    }
+    .separator {
+      border-top: 1px solid #ccc;
+      margin: 20px 0;
     }
   </style>
 </head>
@@ -35,23 +39,22 @@
             const entryDiv = document.createElement('div');
             entryDiv.className = 'entry';
 
-            const titleDiv = document.createElement('div');
-            titleDiv.className = 'title';
-            titleDiv.textContent = article.title;
+            const titleLink = document.createElement('a');
+            titleLink.className = 'title';
+            titleLink.href = article.link;
+            titleLink.textContent = article.title;
 
-            const authorDiv = document.createElement('div');
-            authorDiv.className = 'author';
-            authorDiv.textContent = `Author: ${article.author || 'Unknown'}`;
+            const detailsDiv = document.createElement('div');
+            detailsDiv.className = 'details';
+            detailsDiv.textContent = `${journal.title} | ${article.date}`;
 
-            const dateDiv = document.createElement('div');
-            dateDiv.className = 'date';
-            dateDiv.textContent = `Date: ${article.date}`;
-
-            entryDiv.appendChild(titleDiv);
-            entryDiv.appendChild(authorDiv);
-            entryDiv.appendChild(dateDiv);
-
+            entryDiv.appendChild(titleLink);
+            entryDiv.appendChild(detailsDiv);
             feedContainer.appendChild(entryDiv);
+
+            const separatorDiv = document.createElement('div');
+            separatorDiv.className = 'separator';
+            feedContainer.appendChild(separatorDiv);
           });
         });
       } catch (error) {
