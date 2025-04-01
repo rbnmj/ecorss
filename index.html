@@ -31,10 +31,17 @@
     function isWithinLast14Days(dateString) {
       const date = new Date(dateString);
       const now = new Date();
-      const fourteenDaysAgo = new Date(now.setDate(now.getDate() - 14));
+      const fourteenDaysAgo = new Date(now);
+      fourteenDaysAgo.setDate(now.getDate() - 14);
       return date >= fourteenDaysAgo;
     }
-
+    
+    function formatDate(dateString) {
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+      const date = new Date(dateString);
+      return date.toLocaleString('sv-SE', options).replace(',', '');
+    }
+    
     async function fetchRSSFeed() {
       try {
         const response = await fetch('./data/entries.json');
@@ -54,7 +61,7 @@
 
               const detailsDiv = document.createElement('div');
               detailsDiv.className = 'details';
-              detailsDiv.textContent = `${journal.title} | ${article.date}`;
+              detailsDiv.textContent = `${journal.title} | ${formatDate(article.date)}`;
 
               entryDiv.appendChild(titleLink);
               entryDiv.appendChild(detailsDiv);
