@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RSS Feed Aggregator</title>
+  <title>EcoRSS</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -28,6 +28,13 @@
   <div id="feed"></div>
 
   <script>
+    function isWithinLast14Days(dateString) {
+      const date = new Date(dateString);
+      const now = new Date();
+      const fourteenDaysAgo = new Date(now.setDate(now.getDate() - 14));
+      return date >= fourteenDaysAgo;
+    }
+
     async function fetchRSSFeed() {
       try {
         const response = await fetch('./data/entries.json');
@@ -36,25 +43,27 @@
         
         data.forEach(journal => {
           journal.articles.forEach(article => {
-            const entryDiv = document.createElement('div');
-            entryDiv.className = 'entry';
+            if (isWithinLast14Days(article.date)) {
+              const entryDiv = document.createElement('div');
+              entryDiv.className = 'entry';
 
-            const titleURL = document.createElement('a');
-            titleURL.className = 'title';
-            titleURL.href = article.url;
-            titleURL.textContent = article.title;
+              const titleURL = document.createElement('a');
+              titleURL.className = 'title';
+              titleURL.href = article.url; // Use the URL of the fetched RSS entry
+              titleURL.textContent = article.title;
 
-            const detailsDiv = document.createElement('div');
-            detailsDiv.className = 'details';
-            detailsDiv.textContent = `${journal.title} | ${article.date}`;
+              const detailsDiv = document.createElement('div');
+              detailsDiv.className = 'details';
+              detailsDiv.textContent = `${journal.title} | ${article.date}`;
 
-            entryDiv.appendChild(titleURL);
-            entryDiv.appendChild(detailsDiv);
-            feedContainer.appendChild(entryDiv);
+              entryDiv.appendChild(titleURL);
+              entryDiv.appendChild(detailsDiv);
+              feedContainer.appendChild(entryDiv);
 
-            const separatorDiv = document.createElement('div');
-            separatorDiv.className = 'separator';
-            feedContainer.appendChild(separatorDiv);
+              const separatorDiv = document.createElement('div');
+              separatorDiv.className = 'separator';
+              feedContainer.appendChild(separatorDiv);
+            }
           });
         });
       } catch (error) {
