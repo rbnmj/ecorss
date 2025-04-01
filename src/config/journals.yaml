@@ -1,4 +1,4 @@
-cacheUrl: https://rbnmj.github.io/rss/cache.json
+cacheUrl: https://rbnmj.github.io/ecorss/cache.json
 journals:
   - title: "Ecology"
     url: https://esajournals.onlinelibrary.wiley.com/feed/19399170/most-recent # Ecology
