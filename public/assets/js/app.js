@@ -17,7 +17,7 @@ class FeedManager {
   }
 
   async loadData() {
-    const response = await fetch('/data/entries.json');
+    const response = await fetch('./data/entries.json');
     this.data = await response.json();
     this.collectTags();
   }

@@ -3,7 +3,7 @@ import yaml from 'js-yaml';
 import { JSDOM } from 'jsdom';
 import { parse } from 'rss-to-json';
 
-const config = yaml.load(fs.readFileSync('./src/config/journals.yaml', 'utf8'));
+const config = yaml.load(fs.readFileSync('././src/config/journals.yaml', 'utf8'));
 const dom = new JSDOM();
 
 async function processFeeds() {
@@ -26,8 +26,8 @@ async function processFeeds() {
     }
   }
   
-  fs.mkdirSync('./build/data', { recursive: true });
-  fs.writeFileSync('./public/data/entries.json', JSON.stringify(entries));
+  fs.mkdirSync('././public/data', { recursive: true });
+  fs.writeFileSync('././public/data/entries.json', JSON.stringify(entries));
 }
 
 processFeeds();
