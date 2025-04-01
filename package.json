@@ -1,7 +1,16 @@
 {
-    "scripts": {
-      "build": "node src/scripts/build.js",
-      "serve": "npx serve public"
-    }
+  "name": "ecorss",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node src/scripts/build.js",
+    "deploy": "gh-pages -d public"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "rss-to-json": "^2.1.1",
+    "jsdom": "^22.1.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
   }
-  
+}
