@@ -47,16 +47,16 @@
               const entryDiv = document.createElement('div');
               entryDiv.className = 'entry';
 
-              const titleURL = document.createElement('a');
-              titleURL.className = 'title';
-              titleURL.href = article.url; // Use the URL of the fetched RSS entry
-              titleURL.textContent = article.title;
+              const titleLink = document.createElement('a');
+              titleLink.className = 'title';
+              titleLink.href = article.link; // Use the URL of the fetched RSS entry
+              titleLink.textContent = article.title;
 
               const detailsDiv = document.createElement('div');
               detailsDiv.className = 'details';
               detailsDiv.textContent = `${journal.title} | ${article.date}`;
 
-              entryDiv.appendChild(titleURL);
+              entryDiv.appendChild(titleLink);
               entryDiv.appendChild(detailsDiv);
               feedContainer.appendChild(entryDiv);
 
