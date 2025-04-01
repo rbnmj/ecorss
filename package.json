@@ -1,6 +1,7 @@
 {
   "name": "ecorss",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "build": "node src/scripts/build.js",
     "deploy": "gh-pages -d public"
