@@ -3,17 +3,17 @@ journals:
   - title: "Ecology"
     url: https://esajournals.onlinelibrary.wiley.com/feed/19399170/most-recent # Ecology
   - title: "Ecological Applications"
-    href: https://esajournals.onlinelibrary.wiley.com/feed/19395582/most-recent # Ecological Applications
+    url: https://esajournals.onlinelibrary.wiley.com/feed/19395582/most-recent # Ecological Applications
   - title: "Frontiers in Ecology and the Environment"
-    href: https://esajournals.onlinelibrary.wiley.com/feed/15409309/most-recent # Frontiers in Ecology and the Environment
+    url: https://esajournals.onlinelibrary.wiley.com/feed/15409309/most-recent # Frontiers in Ecology and the Environment
   - title: "Ecological Monographs"
-    href: https://esajournals.onlinelibrary.wiley.com/feed/15577015/most-recent # Ecological Monographs
+    url: https://esajournals.onlinelibrary.wiley.com/feed/15577015/most-recent # Ecological Monographs
   - title: "Ecosphere"
-    href: https://esajournals.onlinelibrary.wiley.com/feed/21508925/most-recent # Ecosphere
+    url: https://esajournals.onlinelibrary.wiley.com/feed/21508925/most-recent # Ecosphere
   - title: "Ecology Letters"
-    href: https://onlinelibrary.wiley.com/feed/14610248/most-recent # Ecology Letters
+    url: https://onlinelibrary.wiley.com/feed/14610248/most-recent # Ecology Letters
   - title: "Journal of Theoretical Ecology"    
-    href: https://rss.sciencedirect.com/publication/science/00225193 # Journal of Theoretical Ecology
+    url: https://rss.sciencedirect.com/publication/science/00225193 # Journal of Theoretical Ecology
 
 
 siteTitle: "EcoRSS"
