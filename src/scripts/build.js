@@ -18,7 +18,7 @@ async function processFeeds() {
         title: journal.title,
         articles: rss.items.map(item => ({
           title: item.title,
-          url: item.url,
+          link: item.link, 
           date: item.published
         })),
       });
