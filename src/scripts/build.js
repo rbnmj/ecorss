@@ -1,7 +1,7 @@
 import fs from 'fs';
 import yaml from 'js-yaml';
 import { JSDOM } from 'jsdom';
-import { parse } from 'rss-to-json';
+import rssToJson from 'rss-to-json';
 
 const config = yaml.load(fs.readFileSync('././src/config/journals.yaml', 'utf8'));
 const dom = new JSDOM();
