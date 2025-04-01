@@ -3,6 +3,8 @@ import yaml from 'js-yaml';
 import { JSDOM } from 'jsdom';
 import rssToJson from 'rss-to-json';
 
+const { parse } = rssToJson;
+
 const config = yaml.load(fs.readFileSync('././src/config/journals.yaml', 'utf8'));
 const dom = new JSDOM();
 
