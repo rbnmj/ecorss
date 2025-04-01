@@ -39,16 +39,16 @@
             const entryDiv = document.createElement('div');
             entryDiv.className = 'entry';
 
-            const titleLink = document.createElement('a');
-            titleLink.className = 'title';
-            titleLink.href = article.link;
-            titleLink.textContent = article.title;
+            const titleURL = document.createElement('a');
+            titleURL.className = 'title';
+            titleURL.href = article.url;
+            titleURL.textContent = article.title;
 
             const detailsDiv = document.createElement('div');
             detailsDiv.className = 'details';
             detailsDiv.textContent = `${journal.title} | ${article.date}`;
 
-            entryDiv.appendChild(titleLink);
+            entryDiv.appendChild(titleURL);
             entryDiv.appendChild(detailsDiv);
             feedContainer.appendChild(entryDiv);
 
