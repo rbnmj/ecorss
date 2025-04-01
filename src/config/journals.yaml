@@ -1,0 +1,13 @@
+cacheUrl: https://rbnmj.github.io/rss/cache.json
+journals:
+  - title: "Ecology"
+    url: https://esajournals.onlinelibrary.wiley.com/feed/19399170/most-recent # Ecology
+    tags: 
+      - ecology
+  - title: "Ecological Applications"
+    href: https://esajournals.onlinelibrary.wiley.com/feed/19395582/most-recent # Ecological Applications
+    tags: 
+      - applications
+
+siteTitle: "EcoRSS"
+timezone: Europe/Amsterdam

@@ -1,0 +1,7 @@
+{
+    "scripts": {
+      "build": "node src/scripts/build.js",
+      "serve": "npx serve public"
+    }
+  }
+  
