@@ -24,7 +24,7 @@
   </style>
 </head>
 <body>
-  <h1>RSS Feed Aggregator</h1>
+  <h1>EcoRSS</h1>
   <div id="feed"></div>
 
   <script>
@@ -35,40 +35,41 @@
     }
     
     async function fetchRSSFeed() {
-      try {
-        const response = await fetch('./data/entries.json');
-        const data = await response.json();
-        const feedContainer = document.getElementById('feed');
-        
-        data.forEach(journal => {
-          journal.articles.forEach(article => {
-              const entryDiv = document.createElement('div');
-              entryDiv.className = 'entry';
+    try {
+      const response = await fetch('./data/entries.json');
+      const articles = await response.json(); // Flat list of articles
+      const feedContainer = document.getElementById('feed');
 
-              const titleLink = document.createElement('a');
-              titleLink.className = 'title';
-              titleLink.href = article.link; // Use the URL of the fetched RSS entry
-              titleLink.textContent = article.title;
+      feedContainer.innerHTML = ''; // Clear existing entries
 
-              const detailsDiv = document.createElement('div');
-              detailsDiv.className = 'details';
-              detailsDiv.textContent = `${journal.title} | ${formatDate(article.date)}`;
+      // Render articles
+      articles.forEach(article => {
+        const entryDiv = document.createElement('div');
+        entryDiv.className = 'entry';
 
-              entryDiv.appendChild(titleLink);
-              entryDiv.appendChild(detailsDiv);
-              feedContainer.appendChild(entryDiv);
+        const titleLink = document.createElement('a');
+        titleLink.className = 'title';
+        titleLink.href = article.link;
+        titleLink.textContent = article.title;
 
-              const separatorDiv = document.createElement('div');
-              separatorDiv.className = 'separator';
-              feedContainer.appendChild(separatorDiv);
-          });
-        });
-      } catch (error) {
-        console.error('Error fetching RSS feed:', error);
-      }
+        const detailsDiv = document.createElement('div');
+        detailsDiv.className = 'details';
+        detailsDiv.textContent = `${article.journal} | ${new Date(article.date).toLocaleString()}`;
+
+        entryDiv.appendChild(titleLink);
+        entryDiv.appendChild(detailsDiv);
+        feedContainer.appendChild(entryDiv);
+
+        const separatorDiv = document.createElement('div');
+        separatorDiv.className = 'separator';
+        feedContainer.appendChild(separatorDiv);
+      });
+    } catch (error) {
+      console.error('Error fetching RSS feed:', error);
     }
+  }
 
-    fetchRSSFeed();
+  fetchRSSFeed();
   </script>
 </body>
 </html>
