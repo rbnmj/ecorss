@@ -7,9 +7,12 @@
     "deploy": "gh-pages -d public"
   },
   "dependencies": {
+    "fast-xml-parser": "^5.0.9",
     "js-yaml": "^4.1.0",
-    "rss-to-json": "^2.1.1",
-    "jsdom": "^22.1.0"
+    "jsdom": "^22.1.0",
+    "node-fetch": "^3.3.2",
+    "rss-parser": "^3.13.0",
+    "rss-to-json": "^2.1.1"
   },
   "devDependencies": {
     "gh-pages": "^6.0.0"
