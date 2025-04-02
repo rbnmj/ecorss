@@ -1,19 +1,63 @@
 cacheUrl: https://rbnmj.github.io/ecorss/cache.json
 journals:
   - title: "Ecology"
-    url: https://esajournals.onlinelibrary.wiley.com/feed/19399170/most-recent # Ecology
+    link: https://esajournals.onlinelibrary.wiley.com/feed/19399170/most-recent # Ecology
   - title: "Ecological Applications"
-    url: https://esajournals.onlinelibrary.wiley.com/feed/19395582/most-recent # Ecological Applications
+    link: https://esajournals.onlinelibrary.wiley.com/feed/19395582/most-recent # Ecological Applications
   - title: "Frontiers in Ecology and the Environment"
-    url: https://esajournals.onlinelibrary.wiley.com/feed/15409309/most-recent # Frontiers in Ecology and the Environment
+    link: https://esajournals.onlinelibrary.wiley.com/feed/15409309/most-recent # Frontiers in Ecology and the Environment
   - title: "Ecological Monographs"
-    url: https://esajournals.onlinelibrary.wiley.com/feed/15577015/most-recent # Ecological Monographs
+    link: https://esajournals.onlinelibrary.wiley.com/feed/15577015/most-recent # Ecological Monographs
   - title: "Ecosphere"
-    url: https://esajournals.onlinelibrary.wiley.com/feed/21508925/most-recent # Ecosphere
+    link: https://esajournals.onlinelibrary.wiley.com/feed/21508925/most-recent # Ecosphere
   - title: "Ecology Letters"
-    url: https://onlinelibrary.wiley.com/feed/14610248/most-recent # Ecology Letters
+    link: https://onlinelibrary.wiley.com/feed/14610248/most-recent # Ecology Letters
   - title: "Journal of Theoretical Ecology"    
-    url: https://rss.sciencedirect.com/publication/science/00225193 # Journal of Theoretical Ecology
+    link: https://rss.sciencedirect.com/publication/science/00225193 # Journal of Theoretical Ecology
+  - title: "OIKOS"
+    link: https://nsojournals.onlinelibrary.wiley.com/feed/16000706/most-recent # OIKOS
+# - title: "Nature Communications"
+#   link: https://www.nature.com/ncomms.rss # Nature Communications
+  - title: "Nature Sustainability"
+    link: https://www.nature.com/natsustain.rss # Nature Sustainability
+  - title: "Nature Ecology & Evolution"
+    link: https://www.nature.com/natecolevol.rss # Nature Ecology & Evolution
+  - title: "Global Change Biology"
+    link: https://conbio.onlinelibrary.wiley.com/feed/15231739/most-recent # Conservation Biology
+  - title: "Landscape and Urban Planning"
+    link: https://rss.sciencedirect.com/publication/science/01692046
+  - title: "Journal of Applied Ecology"
+    link: https://besjournals.onlinelibrary.wiley.com/feed/13652664/most-recent
+  - title: "Global Ecology and Biogeography"
+    link: https://onlinelibrary.wiley.com/feed/14668238/most-recent
+  - title: "Ecological Modelling"
+    link: https://rss.sciencedirect.com/publication/science/03043800
+  - title: "Restoration Ecology"
+    link: https://onlinelibrary.wiley.com/feed/1526100x/most-recent
+  - title: "Environmental Modelling and Software"
+    link: https://rss.sciencedirect.com/publication/science/13648152
+  - title: "Methods in Ecology and Evolution"
+    link: https://besjournals.onlinelibrary.wiley.com/feed/2041210x/most-recent
+  - title: "Ecological Informatics"
+    link: https://rss.sciencedirect.com/publication/science/15749541
+  - title: "Multiscale Modeling and Simulation"
+    link: https://epubs.siam.org/action/showFeed?feed=rss&type=etoc&jc=MMS
+  - title: "Human and Ecological Risk Assessment"
+    link: https://www.tandfonline.com/feed/rss/bher20
+  - title: "IEEE Transactions on Evolutionary Computation"
+    link: https://ieeexplore.ieee.org/rss/TOC4235.XML
+  - title: "Ecological Indicators"
+    link: https://rss.sciencedirect.com/publication/science/1470160X
+  - title: "Journal of Ecology"
+    link: https://besjournals.onlinelibrary.wiley.com/feed/13652745/most-recent
+  - title: "Ecography"
+    link: https://nsojournals.onlinelibrary.wiley.com/feed/16000587/most-recent
+  - title: "Diversity and Distributions"
+    link: https://onlinelibrary.wiley.com/feed/14724642/most-recent
+  - title: "Environmental DNA"
+    link: https://onlinelibrary.wiley.com/feed/26374943/most-recent
+  - title: "Ecological Complexity"
+    link: https://rss.sciencedirect.com/publication/science/1476945X
 
 
 siteTitle: "EcoRSS"
