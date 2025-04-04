@@ -1,51 +1,41 @@
-:root {
-    --primary-color: #2c5f2d;
-    --secondary-color: #97bc62;
-  }
-  
-  body {
-    font-family: system-ui, sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
-  
-  .journal-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    background: #f9f9f9;
-  }
-  
-  .tag-filter {
-    background: var(--secondary-color);
-    border: none;
-    border-radius: 15px;
-    padding: 0.5rem 1rem;
-    margin: 0.3rem;
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
-  
-  .tag-filter:hover {
-    opacity: 0.8;
-  }
-  
-  .article {
-    margin: 1rem 0;
-    padding: 1rem;
-    background: white;
-    border-left: 3px solid var(--primary-color);
-  }
-  
-  .content {
-    line-height: 1.6;
-  }
-  
-  @media (max-width: 768px) {
-    .journal-card {
-      padding: 0.5rem;
-    }
-  }
-  
+body {
+  font-family: Arial, sans-serif;
+  background-color: #dce6dc; /* Set background color */
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: left;
+  color: #333;
+}
+
+.entry {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-weight: bold;
+  color: black; /* Set hyperlink color to black */
+  text-decoration: none; /* Remove underline from hyperlinks */
+}
+
+.title:hover {
+  text-decoration: underline; /* Add underline on hover for better UX */
+}
+
+.details {
+  font-style: italic;
+  color: #555;
+}
+
+.separator {
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+.article-separator {
+  border: none;
+  border-top: 1px solid #aaa;
+  margin: 10px 0;
+}

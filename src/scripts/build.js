@@ -2,6 +2,7 @@ import fs from 'fs';
 import RSSParser from 'rss-parser';
 import yaml from 'js-yaml';
 import { readFile } from 'fs/promises';
+import { DOMParser, XMLSerializer } from 'xmldom';
 
 // Configure rss-parser with custom headers
 const parser = new RSSParser({
@@ -13,23 +14,51 @@ const parser = new RSSParser({
   },
 });
 
+// Add the pubDate processing function
+function addPubDatesToRSS(xmlString) {
+    const doc = new DOMParser().parseFromString(xmlString, "text/xml");
+    const items = doc.getElementsByTagName("item");
+    
+    const monthMap = { Jan:'01', Feb:'02', Mar:'03', Apr:'04', May:'05', Jun:'06', 
+                      Jul:'07', Aug:'08', Sep:'09', Oct:'10', Nov:'11', Dec:'12' };
+
+    Array.from(items).forEach(item => {
+        const description = item.getElementsByTagName("description")[0].textContent;
+        const match = description.match(/Publication date:.*?(\w+)\s+(\d{4})/i);
+        
+        if (match) {
+            const pubDateNode = doc.createElement("pubDate");
+            const [_, month, year] = match;
+            pubDateNode.textContent = `Sat, 01 ${month.slice(0,3)} ${year} 00:00:00 GMT`;
+            item.appendChild(pubDateNode);
+        }
+    });
+    
+    return new XMLSerializer().serializeToString(doc);
+}
+
+// Modified feed processing loop
 async function processFeeds() {
-  const allArticles = [];
+    const allArticles = [];
+    const config = yaml.load(await readFile(new URL('../config/journals.yaml', import.meta.url), 'utf8'));
 
-  // Load the YAML configuration file
-  const config = yaml.load(await readFile(new URL('../config/journals.yaml', import.meta.url), 'utf8'));
-
-  for (const journal of config.journals) {
-    try {
-      const feed = await parser.parseURL(journal.link);
-
-      // Check if the feed contains valid items
-      if (!feed || !feed.items || feed.items.length === 0) {
-        console.warn(`No valid items found for ${journal.title}`);
-        continue;
-      }
-
-      // Process articles and add them to the global list
+    for (const journal of config.journals) {
+        try {
+            // Fetch raw XML first
+            const response = await fetch(journal.link, {
+                headers: parser.options.customHeaders
+            });
+            let xmlString = await response.text();
+            
+            // Check for ScienceDirect RSS
+            if (xmlString.includes('ScienceDirect RSS')) {
+                xmlString = addPubDatesToRSS(xmlString);
+            }
+            
+            // Parse the modified XML
+            const feed = await parser.parseString(xmlString);
+            
+// Process articles and add them to the global list
       const articles = feed.items.map(item => {
         let parsedDate = null;
 

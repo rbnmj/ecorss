@@ -4,72 +4,102 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoRSS</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    .entry {
-      margin-bottom: 20px;
-    }
-    .title {
-      font-weight: bold;
-    }
-    .details {
-      font-style: italic;
-    }
-    .separator {
-      border-top: 1px solid #ccc;
-      margin: 20px 0;
-    }
-  </style>
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
   <h1>EcoRSS</h1>
+  <p id="build-date"></p> <!-- Placeholder for the build date -->
   <div id="feed"></div>
 
   <script>
+    // Set the "Built on" date
+    const buildDateElement = document.getElementById('build-date');
+    const buildDate = new Date(); // Use the current date
+    buildDateElement.textContent = `Built on: ${buildDate.toISOString()}`;
+
+    // Function to format dates
     function formatDate(dateString) {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
       const date = new Date(dateString);
-      return date.toLocaleString('sv-SE', options).replace(',', '');
+      return date.toLocaleDateString('sv-SE', options); // Format as YYYY-MM-DD
     }
-    
+
+    // Fetch and render the RSS feed
     async function fetchRSSFeed() {
-    try {
-      const response = await fetch('./data/entries.json');
-      const articles = await response.json(); // Flat list of articles
-      const feedContainer = document.getElementById('feed');
+      try {
+        const response = await fetch('./data/entries.json');
+        const articles = await response.json(); // Flat list of articles
+        const feedContainer = document.getElementById('feed');
 
-      feedContainer.innerHTML = ''; // Clear existing entries
+        feedContainer.innerHTML = ''; // Clear existing entries
 
-      // Render articles
-      articles.forEach(article => {
-        const entryDiv = document.createElement('div');
-        entryDiv.className = 'entry';
+        // Get the current date
+        const currentDate = new Date();
 
-        const titleLink = document.createElement('a');
-        titleLink.className = 'title';
-        titleLink.href = article.link;
-        titleLink.textContent = article.title;
+        // Filter articles to only include those up to the current date
+        const filteredArticles = articles.filter(article => {
+          const articleDate = new Date(article.date);
+          return articleDate <= currentDate; // Only include articles up to the current date
+        });
 
-        const detailsDiv = document.createElement('div');
-        detailsDiv.className = 'details';
-        detailsDiv.textContent = `${article.journal} | ${new Date(article.date).toLocaleString()}`;
+        // Group articles by date
+        const groupedArticles = filteredArticles.reduce((groups, article) => {
+          const date = formatDate(article.date);
+          if (!groups[date]) {
+            groups[date] = [];
+          }
+          groups[date].push(article);
+          return groups;
+        }, {});
 
-        entryDiv.appendChild(titleLink);
-        entryDiv.appendChild(detailsDiv);
-        feedContainer.appendChild(entryDiv);
+        // Render grouped articles
+        Object.keys(groupedArticles)
+          .sort((a, b) => new Date(b) - new Date(a)) // Sort dates descending
+          .forEach(date => {
+            // Create a date header
+            const dateHeader = document.createElement('h2');
+            dateHeader.textContent = date;
+            feedContainer.appendChild(dateHeader);
 
-        const separatorDiv = document.createElement('div');
-        separatorDiv.className = 'separator';
-        feedContainer.appendChild(separatorDiv);
-      });
-    } catch (error) {
-      console.error('Error fetching RSS feed:', error);
+            // Render articles for this date
+            groupedArticles[date].forEach((article, index, array) => {
+              const entryDiv = document.createElement('div');
+              entryDiv.className = 'entry';
+
+              const titleLink = document.createElement('a');
+              titleLink.className = 'title';
+              titleLink.href = article.link;
+              titleLink.textContent = article.title;
+
+              const detailsDiv = document.createElement('div');
+              detailsDiv.className = 'details';
+              detailsDiv.textContent = `${article.journal}`;
+
+              entryDiv.appendChild(titleLink);
+              entryDiv.appendChild(detailsDiv);
+
+              feedContainer.appendChild(entryDiv);
+
+              // Add a separator after each article except the last one in the group
+              if (index < array.length - 1) {
+                const articleSeparator = document.createElement('hr');
+                articleSeparator.className = 'article-separator';
+                feedContainer.appendChild(articleSeparator);
+              }
+            });
+
+            // Add a separator after each date group
+            const groupSeparator = document.createElement('div');
+            groupSeparator.className = 'separator';
+            feedContainer.appendChild(groupSeparator);
+          });
+      } catch (error) {
+        console.error('Failed to fetch RSS feed:', error);
+      }
     }
-  }
 
-  fetchRSSFeed();
+    // Fetch and render the RSS feed on page load
+    fetchRSSFeed();
   </script>
 </body>
 </html>
