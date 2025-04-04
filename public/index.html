@@ -12,10 +12,24 @@
   <div id="feed"></div>
 
   <script>
-    // Set the "Built on" date
-    const buildDateElement = document.getElementById('build-date');
-    const buildDate = new Date(); // Use the current date
-    buildDateElement.textContent = `Built on: ${buildDate.toISOString()}`;
+    // Fetch and display the build date
+    async function fetchBuildDate() {
+      try {
+        const response = await fetch('./data/build-date.json');
+        const data = await response.json();
+        const buildDateElement = document.getElementById('build-date');
+
+        // Format the build date with time zone
+        const buildDate = new Date(data.buildDate);
+        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        buildDateElement.textContent = `Built on: ${buildDate.toISOString()} UTC`;
+      } catch (error) {
+        console.error('Failed to fetch build date:', error);
+      }
+    }
+
+    // Call the function to fetch and display the build date
+    fetchBuildDate();
 
     // Function to format dates
     function formatDate(dateString) {

@@ -95,6 +95,10 @@ async function processFeeds() {
   // Write the sorted articles to entries.json
   fs.mkdirSync('./public/data', { recursive: true });
   fs.writeFileSync('./public/data/entries.json', JSON.stringify(allArticles, null, 2)); // Pretty-print JSON
+
+  const buildDate = new Date().toISOString();
+  fs.writeFileSync('./public/data/build-date.json', JSON.stringify({ buildDate }, null, 2));
+  console.log(`Build date saved: ${buildDate}`);
 }
 
 processFeeds();
