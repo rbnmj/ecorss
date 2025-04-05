@@ -1,5 +1,11 @@
 [
   {
+    "title": "From social innovation to institutional governance: Unveiling urban rooftop farming in Dhaka city using YouTube video analysis",
+    "link": "https://www.sciencedirect.com/science/article/pii/S0169204625000738?dgcid=rss_sd_all",
+    "date": "2025-07-01T00:00:00.000Z",
+    "journal": "Landscape and Urban Planning"
+  },
+  {
     "title": "Which forest type do visitors find most attractive? Integrating management activities with the recreational attractiveness of forests at a landscape level",
     "link": "https://www.sciencedirect.com/science/article/pii/S016920462500074X?dgcid=rss_sd_all",
     "date": "2025-07-01T00:00:00.000Z",
@@ -94,6 +100,12 @@
     "link": "https://www.sciencedirect.com/science/article/pii/S0169204625000416?dgcid=rss_sd_all",
     "date": "2025-07-01T00:00:00.000Z",
     "journal": "Landscape and Urban Planning"
+  },
+  {
+    "title": "Innovative soil classification approach for achieving global biodiversity framework utilizing integrated data fusion of EMIT and multispectral satellite observations: Case study of Imam Turki bin Abdullah Royal Reserve, Kingdom of Saudi Arabia",
+    "link": "https://www.sciencedirect.com/science/article/pii/S1574954125001323?dgcid=rss_sd_all",
+    "date": "2025-07-01T00:00:00.000Z",
+    "journal": "Ecological Informatics"
   },
   {
     "title": "Enhancing coastal bathymetric mapping with physics-informed recurrent neural networks synergizing Gaofen satellite imagery and ICESat-2 lidar data: A case in the South China Sea",
@@ -516,6 +528,12 @@
     "journal": "Journal of Theoretical Ecology"
   },
   {
+    "title": "Editorial Board",
+    "link": "https://www.sciencedirect.com/science/article/pii/S0022519325000815?dgcid=rss_sd_all",
+    "date": "2025-05-01T00:00:00.000Z",
+    "journal": "Journal of Theoretical Ecology"
+  },
+  {
     "title": "Spatially explicit modelling of woody plant encroachment: A review of models published from 2013 through 2022",
     "link": "https://www.sciencedirect.com/science/article/pii/S030438002500081X?dgcid=rss_sd_all",
     "date": "2025-05-01T00:00:00.000Z",
@@ -930,16 +948,22 @@
     "journal": "Ecological Informatics"
   },
   {
-    "title": "Marine protected area and climate change: A mapping review",
-    "link": "https://www.sciencedirect.com/science/article/pii/S1574954125000512?dgcid=rss_sd_all",
-    "date": "2025-05-01T00:00:00.000Z",
-    "journal": "Ecological Informatics"
-  },
-  {
     "title": "Intraspecific variation in masting across climate gradients is inconsistent with the environmental stress hypothesis",
     "link": "https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecy.70076?af=R",
     "date": "2025-04-04T05:27:43.000Z",
     "journal": "Ecology"
+  },
+  {
+    "title": "Author Correction: The multi-dimensional environmental impact of global crop commodities",
+    "link": "https://www.nature.com/articles/s41893-025-01553-5",
+    "date": "2025-04-04T00:00:00.000Z",
+    "journal": "Nature Sustainability"
+  },
+  {
+    "title": "Embedding information flows within ecological networks",
+    "link": "https://www.nature.com/articles/s41559-025-02670-2",
+    "date": "2025-04-04T00:00:00.000Z",
+    "journal": "Nature Ecology & Evolution"
   },
   {
     "title": "Particle algorithms for animal movement modelling in receiver arrays",
@@ -2178,6 +2202,12 @@
     "journal": "Nature Ecology & Evolution"
   },
   {
+    "title": "Corrigendum to “The emergence of imperfect philopatry and fidelity in spatially and temporally heterogeneous environments” [Ecological Modelling 468 (2022) 109968]",
+    "link": "https://www.sciencedirect.com/science/article/pii/S0304380025000882?dgcid=rss_sd_all",
+    "date": "2025-04-01T00:00:00.000Z",
+    "journal": "Ecological Modelling"
+  },
+  {
     "title": "Integrating equity and justice in marine ecosystem models: An incremental but meaningful approach",
     "link": "https://www.sciencedirect.com/science/article/pii/S0304380025000444?dgcid=rss_sd_all",
     "date": "2025-04-01T00:00:00.000Z",
@@ -2230,6 +2260,18 @@
     "link": "https://www.sciencedirect.com/science/article/pii/S0304380025000717?dgcid=rss_sd_all",
     "date": "2025-04-01T00:00:00.000Z",
     "journal": "Ecological Modelling"
+  },
+  {
+    "title": "SENTINEL: A Shiny App for Processing and Analysis of Fenceline Sensor Data",
+    "link": "https://www.sciencedirect.com/science/article/pii/S136481522500146X?dgcid=rss_sd_all",
+    "date": "2025-04-01T00:00:00.000Z",
+    "journal": "Environmental Modelling and Software"
+  },
+  {
+    "title": "A prototype adaptive mesh generator for enhancing computational efficiency and accuracy in physically-based modeling of flood-landslide hazards",
+    "link": "https://www.sciencedirect.com/science/article/pii/S1364815225001422?dgcid=rss_sd_all",
+    "date": "2025-04-01T00:00:00.000Z",
+    "journal": "Environmental Modelling and Software"
   },
   {
     "title": "Landscape-level assessment of spray drift – A virtual experiment using the Droplet and Atmospheric Dispersion drift (DAD-drift) model",
@@ -2506,6 +2548,42 @@
     "link": "https://www.sciencedirect.com/science/article/pii/S1364815225000763?dgcid=rss_sd_all",
     "date": "2025-04-01T00:00:00.000Z",
     "journal": "Environmental Modelling and Software"
+  },
+  {
+    "title": "From regional imbalances to latecomer advantage: Phosphorus pollution and economic development in the Yangtze economic belt",
+    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X2500353X?dgcid=rss_sd_all",
+    "date": "2025-04-01T00:00:00.000Z",
+    "journal": "Ecological Indicators"
+  },
+  {
+    "title": "Decadal-scale changes in fish spawning strategies: A case study of striped bass in the Hudson River",
+    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25003401?dgcid=rss_sd_all",
+    "date": "2025-04-01T00:00:00.000Z",
+    "journal": "Ecological Indicators"
+  },
+  {
+    "title": "A systematic review on environmental DNA (eDNA) Science: An eco-friendly survey method for conservation and restoration of fragile ecosystems",
+    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25003711?dgcid=rss_sd_all",
+    "date": "2025-04-01T00:00:00.000Z",
+    "journal": "Ecological Indicators"
+  },
+  {
+    "title": "Global-scale improvement of terrestrial gross primary productivity estimation by integrating optical remote sensing with meteorological data",
+    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25003590?dgcid=rss_sd_all",
+    "date": "2025-04-01T00:00:00.000Z",
+    "journal": "Ecological Indicators"
+  },
+  {
+    "title": "Differential aridity-induced variations in ecosystem multifunctionality between Iberian <em>Pinus</em> and <em>Quercus</em> Mediterranean forests",
+    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25003413?dgcid=rss_sd_all",
+    "date": "2025-04-01T00:00:00.000Z",
+    "journal": "Ecological Indicators"
+  },
+  {
+    "title": "Water system sustainability of China’s Yellow River Basin: A Refactoring and integrated evaluation based on the sustainable development Goal 6",
+    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25003267?dgcid=rss_sd_all",
+    "date": "2025-04-01T00:00:00.000Z",
+    "journal": "Ecological Indicators"
   },
   {
     "title": "Structural succession and functional changes in the river ecosystem of the Yellow River estuary under the influence of ecological restoration measures",
@@ -3222,12 +3300,6 @@
     "journal": "Nature Sustainability"
   },
   {
-    "title": "Ignition matters",
-    "link": "https://www.nature.com/articles/s41893-025-01527-7",
-    "date": "2025-03-27T00:00:00.000Z",
-    "journal": "Nature Sustainability"
-  },
-  {
     "title": "Recent increases in sea turtle incubation durations on a North Carolina, USA, beach despite a warming climate",
     "link": "https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecs2.70112?af=R",
     "date": "2025-03-26T07:00:00.000Z",
@@ -3290,12 +3362,6 @@
   {
     "title": "Hybridization contributes to reproductive isolation",
     "link": "https://www.nature.com/articles/s41559-025-02654-2",
-    "date": "2025-03-26T00:00:00.000Z",
-    "journal": "Nature Ecology & Evolution"
-  },
-  {
-    "title": "Pervasive gene flow despite strong and varied reproductive barriers in swordtails",
-    "link": "https://www.nature.com/articles/s41559-025-02669-9",
     "date": "2025-03-26T00:00:00.000Z",
     "journal": "Nature Ecology & Evolution"
   },
@@ -4688,54 +4754,6 @@
   {
     "title": "An integrated approach for evaluating the spatial and temporal dynamics of ecosystem services and ecological risk urban agglomerations in China",
     "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25001773?dgcid=rss_sd_all",
-    "date": "2025-03-01T00:00:00.000Z",
-    "journal": "Ecological Indicators"
-  },
-  {
-    "title": "Developing spatially comparable biodiversity indicators using objective scale-dependent species selection",
-    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25002584?dgcid=rss_sd_all",
-    "date": "2025-03-01T00:00:00.000Z",
-    "journal": "Ecological Indicators"
-  },
-  {
-    "title": "Productivity and tolerance reveal the shift from competition to facilitation among multiple species under multiple stressors",
-    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25002511?dgcid=rss_sd_all",
-    "date": "2025-03-01T00:00:00.000Z",
-    "journal": "Ecological Indicators"
-  },
-  {
-    "title": "Spatio-Temporal evolution and scenario-based optimization of urban ecosystem services supply and Demand: A block-scale study in Xiamen, China",
-    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25002201?dgcid=rss_sd_all",
-    "date": "2025-03-01T00:00:00.000Z",
-    "journal": "Ecological Indicators"
-  },
-  {
-    "title": "Stronger tree size-mortality association with increasing droughts and basal areas: A <em>meta</em>-analysis",
-    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25002572?dgcid=rss_sd_all",
-    "date": "2025-03-01T00:00:00.000Z",
-    "journal": "Ecological Indicators"
-  },
-  {
-    "title": "Dynamic processes of water conflicts and their coupling with water crises in Asia’s transboundary river basins",
-    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25002560?dgcid=rss_sd_all",
-    "date": "2025-03-01T00:00:00.000Z",
-    "journal": "Ecological Indicators"
-  },
-  {
-    "title": "Effects of northern bobwhite habitat management on avian species of conservation concern",
-    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25002419?dgcid=rss_sd_all",
-    "date": "2025-03-01T00:00:00.000Z",
-    "journal": "Ecological Indicators"
-  },
-  {
-    "title": "Environmental drivers of microbial assembly and stability in lakes across biogeographical regions",
-    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25002559?dgcid=rss_sd_all",
-    "date": "2025-03-01T00:00:00.000Z",
-    "journal": "Ecological Indicators"
-  },
-  {
-    "title": "Wetland inventory, key drivers of change and their socioeconomic and environmental implications in Ethiopia",
-    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X25002432?dgcid=rss_sd_all",
     "date": "2025-03-01T00:00:00.000Z",
     "journal": "Ecological Indicators"
   },
@@ -6196,6 +6214,12 @@
     "link": "https://conbio.onlinelibrary.wiley.com/doi/10.1111/cobi.14074?af=R",
     "date": "2023-02-20T08:38:36.000Z",
     "journal": "Global Change Biology"
+  },
+  {
+    "title": "Corrigendum to “Environmental and economic sustainability of key sectors in China’s steel industry chain: An application of the Emergy Accounting approach” [Ecol. Indicators 129 (2021) 108011]",
+    "link": "https://www.sciencedirect.com/science/article/pii/S1470160X22002758?dgcid=rss_sd_all",
+    "date": "2022-03-01T00:00:00.000Z",
+    "journal": "Ecological Indicators"
   },
   {
     "title": "Psychological perceptions and voluntary protective behaviors during COVID-19 pandemic in China: the roles of cultural worldview",
