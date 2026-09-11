@@ -12,108 +12,103 @@
   <div id="feed"></div>
 
   <script>
-    // Fetch and display the build date
-    async function fetchBuildDate() {
-      try {
-        const response = await fetch('./data/build-date.json');
-        const data = await response.json();
-        const buildDateElement = document.getElementById('build-date');
+    const CHECK_INTERVAL_MS = 30 * 60 * 1000; // look for a new build every 30 min while the tab is open
+    let currentBuildDate = null;
 
-        // Format the build date with time zone
-        const buildDate = new Date(data.buildDate);
-        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        buildDateElement.textContent = `Built on: ${buildDate.toISOString()} UTC`;
-      } catch (error) {
-        console.error('Failed to fetch build date:', error);
-      }
+    // Always bypass the browser/CDN cache so the morning build shows up right away.
+    async function getJSON(path) {
+      const response = await fetch(path, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
+      return response.json();
     }
 
-    // Call the function to fetch and display the build date
-    fetchBuildDate();
-
-    // Function to format dates
+    // Format as YYYY-MM-DD in the visitor's local time
     function formatDate(dateString) {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-      const date = new Date(dateString);
-      return date.toLocaleDateString('sv-SE', options); // Format as YYYY-MM-DD
+      return new Date(dateString).toLocaleDateString('sv-SE', { year: 'numeric', month: '2-digit', day: '2-digit' });
     }
 
-    // Fetch and render the RSS feed
-    async function fetchRSSFeed() {
-      try {
-        const response = await fetch('./data/entries.json');
-        const articles = await response.json(); // Flat list of articles
-        const feedContainer = document.getElementById('feed');
+    function safeLink(url) {
+      return /^https?:\/\//i.test(url) ? url : '#';
+    }
 
-        feedContainer.innerHTML = ''; // Clear existing entries
+    function renderBuildDate(buildDate) {
+      const formatted = new Date(buildDate).toLocaleString('sv-SE', { dateStyle: 'short', timeStyle: 'short' });
+      document.getElementById('build-date').textContent = `Last updated: ${formatted}`;
+    }
 
-        // Get the current date
-        const currentDate = new Date();
+    function renderFeed(articles) {
+      const feedContainer = document.getElementById('feed');
+      const fragment = document.createDocumentFragment();
+      const now = new Date();
 
-        // Filter articles to only include those up to the current date
-        const filteredArticles = articles.filter(article => {
-          const articleDate = new Date(article.date);
-          return articleDate <= currentDate; // Only include articles up to the current date
-        });
-
-        // Group articles by date
-        const groupedArticles = filteredArticles.reduce((groups, article) => {
+      // Only articles up to today (ScienceDirect issue dates can lie in the future)
+      const grouped = articles
+        .filter(article => new Date(article.date) <= now)
+        .reduce((groups, article) => {
           const date = formatDate(article.date);
-          if (!groups[date]) {
-            groups[date] = [];
-          }
-          groups[date].push(article);
+          (groups[date] ||= []).push(article);
           return groups;
         }, {});
 
-        // Render grouped articles
-        Object.keys(groupedArticles)
-          .sort((a, b) => new Date(b) - new Date(a)) // Sort dates descending
-          .forEach(date => {
-            // Create a date header
-            const dateHeader = document.createElement('h2');
-            dateHeader.textContent = date;
-            feedContainer.appendChild(dateHeader);
+      Object.keys(grouped)
+        .sort((a, b) => new Date(b) - new Date(a))
+        .forEach(date => {
+          const dateHeader = document.createElement('h2');
+          dateHeader.textContent = date;
+          fragment.appendChild(dateHeader);
 
-            // Render articles for this date
-            groupedArticles[date].forEach((article, index, array) => {
-              const entryDiv = document.createElement('div');
-              entryDiv.className = 'entry';
+          grouped[date].forEach((article, index, array) => {
+            const entryDiv = document.createElement('div');
+            entryDiv.className = 'entry';
 
-              const titleLink = document.createElement('a');
-              titleLink.className = 'title';
-              titleLink.href = article.link;
-              titleLink.textContent = article.title;
+            const titleLink = document.createElement('a');
+            titleLink.className = 'title';
+            titleLink.href = safeLink(article.link);
+            titleLink.textContent = article.title;
 
-              const detailsDiv = document.createElement('div');
-              detailsDiv.className = 'details';
-              detailsDiv.textContent = `${article.journal}`;
+            const detailsDiv = document.createElement('div');
+            detailsDiv.className = 'details';
+            detailsDiv.textContent = article.journal;
 
-              entryDiv.appendChild(titleLink);
-              entryDiv.appendChild(detailsDiv);
+            entryDiv.appendChild(titleLink);
+            entryDiv.appendChild(detailsDiv);
+            fragment.appendChild(entryDiv);
 
-              feedContainer.appendChild(entryDiv);
-
-              // Add a separator after each article except the last one in the group
-              if (index < array.length - 1) {
-                const articleSeparator = document.createElement('hr');
-                articleSeparator.className = 'article-separator';
-                feedContainer.appendChild(articleSeparator);
-              }
-            });
-
-            // Add a separator after each date group
-            const groupSeparator = document.createElement('div');
-            groupSeparator.className = 'separator';
-            feedContainer.appendChild(groupSeparator);
+            if (index < array.length - 1) {
+              const articleSeparator = document.createElement('hr');
+              articleSeparator.className = 'article-separator';
+              fragment.appendChild(articleSeparator);
+            }
           });
+
+          const groupSeparator = document.createElement('div');
+          groupSeparator.className = 'separator';
+          fragment.appendChild(groupSeparator);
+        });
+
+      feedContainer.replaceChildren(fragment);
+    }
+
+    // Re-render only when a newer build has been published – no page reload needed.
+    async function refresh() {
+      try {
+        const { buildDate } = await getJSON('./data/build-date.json');
+        if (buildDate === currentBuildDate) return;
+
+        const articles = await getJSON('./data/entries.json');
+        renderFeed(articles);
+        renderBuildDate(buildDate);
+        currentBuildDate = buildDate;
       } catch (error) {
-        console.error('Failed to fetch RSS feed:', error);
+        console.error('Failed to refresh feed:', error);
       }
     }
 
-    // Fetch and render the RSS feed on page load
-    fetchRSSFeed();
+    refresh();
+    setInterval(refresh, CHECK_INTERVAL_MS);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') refresh();
+    });
   </script>
 </body>
 </html>

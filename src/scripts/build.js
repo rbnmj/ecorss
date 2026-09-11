@@ -2,103 +2,109 @@ import fs from 'fs';
 import RSSParser from 'rss-parser';
 import yaml from 'js-yaml';
 import { readFile } from 'fs/promises';
-import { DOMParser, XMLSerializer } from 'xmldom';
+import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
 
-// Configure rss-parser with custom headers
-const parser = new RSSParser({
-  customHeaders: {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-    'Accept': 'application/rss+xml, application/xml, text/xml',
-    'Accept-Language': 'en-US,en;q=0.9',
-    'Cache-Control': 'no-cache',
-  },
-});
+const REQUEST_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+  'Accept': 'application/rss+xml, application/xml, text/xml',
+  'Accept-Language': 'en-US,en;q=0.9',
+  'Cache-Control': 'no-cache',
+};
+const FEED_TIMEOUT_MS = 30_000;
 
-// Add the pubDate processing function
+const parser = new RSSParser();
+
+// ScienceDirect feeds have no <pubDate>; derive one from "Publication date: <Month> <Year>"
+// in the description (set to the 1st of that month).
 function addPubDatesToRSS(xmlString) {
-    const doc = new DOMParser().parseFromString(xmlString, "text/xml");
-    const items = doc.getElementsByTagName("item");
-    
-    const monthMap = { Jan:'01', Feb:'02', Mar:'03', Apr:'04', May:'05', Jun:'06', 
-                      Jul:'07', Aug:'08', Sep:'09', Oct:'10', Nov:'11', Dec:'12' };
+  const doc = new DOMParser().parseFromString(xmlString, 'text/xml');
+  const items = doc.getElementsByTagName('item');
 
-    Array.from(items).forEach(item => {
-        const description = item.getElementsByTagName("description")[0].textContent;
-        const match = description.match(/Publication date:.*?(\w+)\s+(\d{4})/i);
-        
-        if (match) {
-            const pubDateNode = doc.createElement("pubDate");
-            const [_, month, year] = match;
-            pubDateNode.textContent = `Sat, 01 ${month.slice(0,3)} ${year} 00:00:00 GMT`;
-            item.appendChild(pubDateNode);
-        }
-    });
-    
-    return new XMLSerializer().serializeToString(doc);
+  Array.from(items).forEach(item => {
+    const descriptionNode = item.getElementsByTagName('description')[0];
+    if (!descriptionNode) return;
+    const match = descriptionNode.textContent.match(/Publication date:.*?(\w+)\s+(\d{4})/i);
+
+    if (match) {
+      const [, month, year] = match;
+      const pubDateNode = doc.createElement('pubDate');
+      pubDateNode.textContent = `01 ${month.slice(0, 3)} ${year} 00:00:00 GMT`;
+      item.appendChild(pubDateNode);
+    }
+  });
+
+  return new XMLSerializer().serializeToString(doc);
 }
 
-// Modified feed processing loop
 async function processFeeds() {
-    const allArticles = [];
-    const config = yaml.load(await readFile(new URL('../config/journals.yaml', import.meta.url), 'utf8'));
+  const allArticles = [];
+  const failed = [];
+  const config = yaml.load(await readFile(new URL('../config/journals.yaml', import.meta.url), 'utf8'));
 
-    for (const journal of config.journals) {
-        try {
-            // Fetch raw XML first
-            const response = await fetch(journal.link, {
-                headers: parser.options.customHeaders
-            });
-            let xmlString = await response.text();
-            
-            // Check for ScienceDirect RSS
-            if (xmlString.includes('ScienceDirect RSS')) {
-                xmlString = addPubDatesToRSS(xmlString);
-            }
-            
-            // Parse the modified XML
-            const feed = await parser.parseString(xmlString);
-            
-// Process articles and add them to the global list
+  for (const journal of config.journals) {
+    try {
+      const response = await fetch(journal.link, {
+        headers: REQUEST_HEADERS,
+        signal: AbortSignal.timeout(FEED_TIMEOUT_MS),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      let xmlString = await response.text();
+
+      if (xmlString.includes('ScienceDirect RSS')) {
+        xmlString = addPubDatesToRSS(xmlString);
+      }
+
+      const feed = await parser.parseString(xmlString);
+
       const articles = feed.items.map(item => {
         let parsedDate = null;
-
-        // Attempt to use isoDate or pubDate
         if (item.isoDate) {
           parsedDate = new Date(item.isoDate);
         } else if (item.pubDate) {
           parsedDate = new Date(item.pubDate);
         }
 
-        // Fallback to current date if no valid date is found
         if (!parsedDate || isNaN(parsedDate)) {
           console.warn(`Invalid or missing date for article "${item.title}" in journal "${journal.title}". Using current date.`);
-          parsedDate = new Date(Date.now());
+          parsedDate = new Date();
         }
 
         return {
-          title: item.title || 'Untitled', // Fallback for missing titles
-          link: item.link || '#',         // Fallback for missing links
-          date: parsedDate.toISOString(), // Use parsed or fallback date
-          journal: journal.title,         // Include journal title for context
+          title: item.title || 'Untitled',
+          link: item.link || '#',
+          date: parsedDate.toISOString(),
+          journal: journal.title,
         };
       });
 
-      allArticles.push(...articles); // Add articles to the global list
+      console.log(`${journal.title}: ${articles.length} articles`);
+      allArticles.push(...articles);
     } catch (error) {
-      console.error(`Failed to process ${journal.title}:`, error);
+      failed.push(journal.title);
+      console.error(`Failed to process ${journal.title}: ${error.message}`);
     }
   }
 
-  // Sort all articles by date in descending order
+  // If nothing came back (network trouble etc.), stop here so the deploy step is
+  // skipped and yesterday's version of the site stays online instead of an empty page.
+  if (allArticles.length === 0) {
+    throw new Error('No articles fetched from any feed - not publishing.');
+  }
+
   allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // Write the sorted articles to entries.json
   fs.mkdirSync('./public/data', { recursive: true });
-  fs.writeFileSync('./public/data/entries.json', JSON.stringify(allArticles, null, 2)); // Pretty-print JSON
+  fs.writeFileSync('./public/data/entries.json', JSON.stringify(allArticles, null, 2));
 
   const buildDate = new Date().toISOString();
   fs.writeFileSync('./public/data/build-date.json', JSON.stringify({ buildDate }, null, 2));
+
+  console.log(`\n${allArticles.length} articles from ${config.journals.length - failed.length}/${config.journals.length} journals.`);
+  if (failed.length) console.log(`Failed: ${failed.join(', ')}`);
   console.log(`Build date saved: ${buildDate}`);
 }
 
-processFeeds();
+processFeeds().catch(error => {
+  console.error(error);
+  process.exit(1);
+});
